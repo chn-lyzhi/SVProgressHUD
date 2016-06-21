@@ -111,6 +111,10 @@ static const CGFloat SVProgressHUDUndefinedProgress = -1;
 
 #pragma mark - Setters
 
++ (void)setDefaultUserIsTeacher:(BOOL)userIsTeacher{
+    [[self sharedView] setUserIsTeacher:userIsTeacher];
+}
+
 + (void)setStatus:(NSString*)status{
     [[self sharedView] setStatus:status];
 }
@@ -243,7 +247,7 @@ static const CGFloat SVProgressHUDUndefinedProgress = -1;
 }
 
 + (void)showSuccessWithStatus:(NSString*)status{
-    if ([TENAppContent sharedInstance].userIsTeacher) {
+    if ([[self sharedView]userIsTeacher]) {
         [self showImage:nil status:status backImage:[self sharedView].successTeacherImage];
     } else {
         [self showImage:[self sharedView].successImage status:status backImage:[self sharedView].successImageCMM];
@@ -258,7 +262,7 @@ static const CGFloat SVProgressHUDUndefinedProgress = -1;
 }
 
 + (void)showErrorWithStatus:(NSString*)status {
-    if ([TENAppContent sharedInstance].userIsTeacher) {
+    if ([[self sharedView]userIsTeacher]) {
         [self showImage:nil status:status backImage:[self sharedView].errorTeacherImage];
     } else {
         [self showImage:[self sharedView].errorImage status:status backImage:[self sharedView].errorImageCMM];
@@ -330,6 +334,7 @@ static const CGFloat SVProgressHUDUndefinedProgress = -1;
         self.alpha = 0.0f;
         self.activityCount = 0;
         
+        _userIsTeacher = NO;
         _defaultMaskType = SVProgressHUDMaskTypeNone;
         _defaultStyle = SVProgressHUDStyleLight;
         _defaultAnimationType = SVProgressHUDAnimationTypeFlat;
@@ -443,7 +448,7 @@ static const CGFloat SVProgressHUDUndefinedProgress = -1;
         //原代码
         //        CGFloat labelRectY = (imageUsed || progressUsed) ? 68.0f : 9.0f;
         CGFloat labelRectY;
-        if ([TENAppContent sharedInstance].userIsTeacher) {
+        if (self.userIsTeacher) {
             labelRectY = hudHeight - 40;
         } else {
             labelRectY = 180.f;
@@ -458,7 +463,7 @@ static const CGFloat SVProgressHUDUndefinedProgress = -1;
         if (hudHeight > 200.f) {
             labelRect = CGRectMake(0.0f, labelRectY, hudWidth, stringHeight);
         } else {
-            if ([TENAppContent sharedInstance].userIsTeacher) {
+            if (self.userIsTeacher) {
                 labelRect = CGRectMake(0.0f, labelRectY, hudWidth, stringHeight);
             } else {
                 labelRect = CGRectMake(0.0f, 50, hudWidth, stringHeight);
@@ -953,7 +958,7 @@ static const CGFloat SVProgressHUDUndefinedProgress = -1;
     if (backImage) {
         //        self.hudView.image = backImage;
         //!!!!!!!!!!!!
-        if ([TENAppContent sharedInstance].userIsTeacher) {
+        if (self.userIsTeacher) {
             [self.hudView setImage:backImage];
             self.hudView.contentMode = UIViewContentModeCenter;
         } else {
@@ -962,7 +967,6 @@ static const CGFloat SVProgressHUDUndefinedProgress = -1;
     } else {
         self.hudView.backgroundColor = [UIColor whiteColor];
     }
-    
     
     UIColor *tintColor = self.foregroundColorForStyle;
     if([self.imageView respondsToSelector:@selector(setTintColor:)]){

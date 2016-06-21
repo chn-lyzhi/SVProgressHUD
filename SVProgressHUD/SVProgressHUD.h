@@ -48,6 +48,7 @@ typedef void (^SVProgressHUDDismissCompletion)(void);
 
 #pragma mark - Customization
 
+@property (assign, nonatomic) BOOL userIsTeacher;
 @property (assign, nonatomic) SVProgressHUDStyle defaultStyle UI_APPEARANCE_SELECTOR;                   // default is SVProgressHUDStyleLight
 @property (assign, nonatomic) SVProgressHUDMaskType defaultMaskType UI_APPEARANCE_SELECTOR;             // default is SVProgressHUDMaskTypeNone
 @property (assign, nonatomic) SVProgressHUDAnimationType defaultAnimationType UI_APPEARANCE_SELECTOR;   // default is SVProgressHUDAnimationTypeFlat
@@ -71,7 +72,7 @@ typedef void (^SVProgressHUDDismissCompletion)(void);
 @property (assign, nonatomic) NSTimeInterval fadeInAnimationDuration;  // default is 0.15
 @property (assign, nonatomic) NSTimeInterval fadeOutAnimationDuration; // default is 0.15
 
-
++ (void)setDefaultUserIsTeacher:(BOOL)userIsTeacher;
 + (void)setDefaultStyle:(SVProgressHUDStyle)style;                  // default is SVProgressHUDStyleLight
 + (void)setDefaultMaskType:(SVProgressHUDMaskType)maskType;         // default is SVProgressHUDMaskTypeNone
 + (void)setDefaultAnimationType:(SVProgressHUDAnimationType)type;   // default is SVProgressHUDAnimationTypeFlat
