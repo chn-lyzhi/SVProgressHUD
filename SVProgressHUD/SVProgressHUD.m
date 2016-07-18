@@ -101,13 +101,12 @@ static const CGFloat SVProgressHUDUndefinedProgress = -1;
     
     static SVProgressHUD *sharedView;
 #if !defined(SV_APP_EXTENSIONS)
-    dispatch_once(&once, ^{ sharedView = [[self alloc] initWithFrame:[[[UIApplication sharedApplication] delegate] window].bounds]; });
+    dispatch_once(&once, ^{ sharedView = [[SVProgressHUD alloc] initWithFrame:[[[UIApplication sharedApplication] delegate] window].bounds]; });
 #else
-    dispatch_once(&once, ^{ sharedView = [[self alloc] initWithFrame:[[UIScreen mainScreen] bounds]]; });
+    dispatch_once(&once, ^{ sharedView = [[SVProgressHUD alloc] initWithFrame:[[UIScreen mainScreen] bounds]]; });
 #endif
     return sharedView;
 }
-
 
 #pragma mark - Setters
 
