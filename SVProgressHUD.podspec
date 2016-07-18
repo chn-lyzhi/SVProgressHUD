@@ -13,6 +13,6 @@ Pod::Spec.new do |s|
 
   s.source_files = 'SVProgressHUD/*.{h,m}'
   s.framework    = 'QuartzCore'
-  s.resources    = 'SVProgressHUD/SVProgressHUD.bundle'
+  s.resources    = 'SVProgressHUD/*.bundle'
   s.requires_arc = true
 end
